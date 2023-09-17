@@ -1,12 +1,51 @@
 # Live-stream server portable. Windows+Nginx+RTMP+HLS+Dash
 
-Video for the setup
+Watch the Youtube video I mde to accompany this setup: 
 https://www.youtube.com/watch?v=a9qTHTtI9Oc
 
+![Some Logo](https://i.imgur.com/Mpue2uI.png)
 
-I actually made some modification, such as http for hls run on port 9080, ... so there will be some adjustment for the instruction later.
-For some reason, this NGINX version is capable to stream rtmp on Window.
-And also, if you run stream.bat file, it would be cc.mp4 video, there will be instruction to modify later.
+This package was forked from SwampApe/nginx-rtmp-1.17.10-windows.
+
+What is this? It's my attempt to make it as easy as possible to set up a live-stream 
+server on MS Windows.
+
+First we need to make sure that all the files are unblocked by Windows so we can run them.
+You can accomplish this by right-clicking the executable files and choose properties, and
+then choose unblock. But there is a faster, easy way to unblock all the files in a certain
+folder. Click start, start typing: "Windows Powershell" and if it appears, right click on
+it and choose: "Run as administrator". Enter something like the following in the window.
+(In this example I placed the contents of the zip file in C:\livestream.
+
+dir C:\livestream -Recurse | Unblock-File
+
+Please use your brain here, and do this for the locations where you unzipped the file.
+
+Before you run nginx.exe make sure that you have had a look at the conf/nginx.conf file. It 
+might be required to edit some things in there according to you needs or wishes.
+
+Every time you make a change in the configuration, you should use the test-config.bat file
+to see if nginx finds any errors in your config. If it finds no errors, you can safely
+(re)start Nginx. If it does find an error, it will show you what it is so you can easy
+change that option and then try test-config.bat again. 
+
+You need to restart nginx.exe every single time you made changes to the config file. The
+config file gets loaded during startup of Nginx so it makes sense that you must restart 
+it if you want it to pick up your edited changes. First use the stop-nginx.bat file and 
+check if it kills all the nginx processes by looking at your task manager (ctrl+alt+del).
+If it doesn't kill all nginx processes you must kill them manually by right-clicking them
+and choose "end process". Now you can start nginx.exe again and your changes will be active.
+
+When you want to test the setup, please make sure you set your OBS or any other live-stream
+application correctly. The stream URL should be: "rtmp://localhost/live" and the live-
+stream key should be: "stream"
+
+If you have any questions, please feel free to NOT bother me about it. Just use google like 
+any other well respected geek.
+
+Good luck with it and have fun live-streaming!
+
+
 # nginx-rtmp-1.17.10-windows
 
     Nginx: 1.17.10

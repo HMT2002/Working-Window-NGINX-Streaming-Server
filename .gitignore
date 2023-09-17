@@ -1,5 +1,5 @@
-/tmp/hls/*.m3u8
-/tmp/hls/*.ts
+/temp/tmp_dash/
+/temp/tmp_hls/
 /temp/scgi_temp/
 /temp/proxy_temp/
 /temp/fastcgi_temp/
