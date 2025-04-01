@@ -7,3 +7,5 @@
 /temp/uwsgi_temp/
 /logs/
 /tmp
+*.mp4
+*.mkv

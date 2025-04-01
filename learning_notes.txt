@@ -1,0 +1,39 @@
+--what "ffmpeg -re" does?
+The -re flag in FFmpeg stands for "read input at native frame rate" and it has a specific purpose:
+When you use -re, FFmpeg reads the input file at its native frame rate rather than as fast as possible. This simulates a live input stream by pacing the reading of the input file.
+This is particularly useful when:
+
+Streaming media: If you're streaming to a server or another destination, -re ensures you don't overwhelm the destination by sending frames too quickly.
+Simulating live sources: For testing streaming setups, -re makes a pre-recorded file behave more like a live camera or microphone input.
+Rate control: It helps maintain proper timing relationships between frames when streaming pre-recorded content.
+
+In your specific RTP streaming command, -re is important because:
+
+Without it, FFmpeg would read the entire input file as quickly as possible and stream it out at maximum speed
+With it, FFmpeg maintains the correct timing, making the stream behave as if it were being generated in real-time
+
+This is especially important when streaming to applications or services that expect real-time media feeds at their native frame rates.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--what would happen if "FFmpeg would read the entire input file as quickly as possible and stream it out at maximum speed"
+If FFmpeg reads the entire input file as quickly as possible and streams it out at maximum speed (without the -re flag), several problems would occur:
+
+Buffer overflow - The receiving end would be overwhelmed with data coming in too quickly, potentially causing buffer overflows and packet loss.
+Playback issues - The receiving application would receive frames much faster than they should be played back, causing:
+
+Video playing at extremely high speeds
+Audio becoming incomprehensible
+Synchronization problems between audio and video
+
+
+Resource consumption - It would consume excessive network bandwidth in bursts rather than distributing it evenly over time.
+Server rejection - Many streaming servers have rate limiting and would reject or disconnect a stream sending data too quickly.
+Timestamp problems - RTP packets include timestamps that help maintain proper playback timing. Without controlled pacing, these timestamps would be incorrect.
+
+For example, if you have a 1-minute video file and stream it without -re, the entire file might be streamed in just a few seconds. The receiving end would get 1 minute worth of content compressed into those few seconds, making proper playback impossible.
+This is why the -re flag is essential for any streaming scenario where you're using a file as input but want it to behave like a live source.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+***buffer overflows
+In programming and information security, a buffer overflow or buffer overrun is an anomaly whereby a program writes data to a buffer beyond the buffer's allocated memory, overwriting adjacent memory locations.
+A buffer overflow (or buffer overrun) occurs when the volume of data exceeds the storage capacity of the memory buffer
