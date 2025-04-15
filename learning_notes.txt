@@ -37,3 +37,14 @@ This is why the -re flag is essential for any streaming scenario where you're us
 ***buffer overflows
 In programming and information security, a buffer overflow or buffer overrun is an anomaly whereby a program writes data to a buffer beyond the buffer's allocated memory, overwriting adjacent memory locations.
 A buffer overflow (or buffer overrun) occurs when the volume of data exceeds the storage capacity of the memory buffer
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+The command should be ffmpeg -re -i SomeVideo.mp4 -vcodec copy -an -f rtp rtp://127.0.0.1:11111 -vn -acodec copy -f rtp rtp://127.0.0.1:11113
+11111 => video RTP
+11112 => video RTCP implicitly
+11113 => audio RTP
+11114 => audio RTCP implicitly
+Because RTCP port will be set to the RTP port + 1 automatically, or you’d get the bind failed error while playing.
+https://ffmpeg.org/ffmpeg-protocols.html#rtp

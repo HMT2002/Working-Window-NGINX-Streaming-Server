@@ -4,4 +4,4 @@ ffmpeg -re -stream_loop -1 -i "%1" ^
  -c:a copy ^
  -loop -1 ^
  -rtsp_transport udp ^
- -f rtsp  "rtsp://localhost:4311/live.sdp"
+ -f rtsp  "rtsp://%~2"

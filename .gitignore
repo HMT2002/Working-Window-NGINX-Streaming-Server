@@ -6,6 +6,10 @@
 /temp/client_body_temp/
 /temp/uwsgi_temp/
 /logs/
-/tmp
+/tmp/
 *.mp4
 *.mkv
+*.m4s
+*.mpd
+*.sdp
+stream.sdp
